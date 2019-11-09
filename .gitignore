@@ -1,0 +1,22 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Scala template
+
+bin/
+project/
+target/
+build/
+.cache
+.cache-main
+.classpath
+.history
+.project
+.scala_dependencies
+.settings
+.worksheet
+.DS_Store
+*.class
+*.log
+*.iml
+*.ipr
+*.iws
+.idea
