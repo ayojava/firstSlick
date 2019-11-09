@@ -27,7 +27,6 @@ final class SuppliersTable(tag: Tag) extends Table[Suppliers](tag,"Suppliers"){
 
 }
 
-lazy val suppliersTblQuery: TableQuery[SuppliersTable] = TableQuery[SuppliersTable]
 
 
 case class Coffees ( id : Long , name : String , price : Double , qty : Long ,supplierId : Long, createDate : LocalDateTime)
@@ -36,7 +35,7 @@ final class CoffeesTable(tag: Tag) extends Table[Coffees](tag ,"Coffees"){
 
   def id : Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
-  def name: Rep[String] = column[String]("name")
+  def name: Rep[String] = column[String]("name", O.Length(512))
 
   def price: Rep[Double] = column[Double]("price")
 
@@ -46,13 +45,14 @@ final class CoffeesTable(tag: Tag) extends Table[Coffees](tag ,"Coffees"){
 
   def createDate : Rep[LocalDateTime] = column[LocalDateTime]("createDate")
 
-  override def * = (id , name , price , qty , supplierId).mapTo[Coffees]
+  override def * = (id , name , price , qty , supplierId,createDate).mapTo[Coffees]
 
-  def supplierFK = foreignKey("supplier_fk" , supplierId , suppliersTblQuery)(_.id)
+  def supplierFK =
+    foreignKey("supplier_fk" , supplierId , TableQuery[SuppliersTable])(_.id , onDelete = ForeignKeyAction.Cascade)
 
 }
 
-lazy val coffeesTblQuery: TableQuery[CoffeesTable] = TableQuery[CoffeesTable]
+
 
 
 
