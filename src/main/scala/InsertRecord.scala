@@ -1,0 +1,5 @@
+
+
+object InsertRecord  extends App {
+
+}

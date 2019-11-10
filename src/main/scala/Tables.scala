@@ -5,7 +5,7 @@ import slick.jdbc.PostgresProfile.api._
 
 //Building applications with scala
 
-case class Suppliers (id:Long , name : String , street : String , city : String , state : String , zip : Option[String] = None , createDate : LocalDateTime)
+case class Suppliers (name : String , street : String , city : String , state : String , zip : Option[String] = None , createDate : LocalDateTime , id:Long =0L)
 
 final class SuppliersTable(tag: Tag) extends Table[Suppliers](tag,"Suppliers"){
 
@@ -23,13 +23,13 @@ final class SuppliersTable(tag: Tag) extends Table[Suppliers](tag,"Suppliers"){
 
   def createDate : Rep[LocalDateTime] = column[LocalDateTime]("createDate")
 
-  def * = (id, name , street,city,state, zip , createDate).mapTo[Suppliers]
+  def * = ( name , street,city,state, zip , createDate , id).mapTo[Suppliers]
 
 }
 
 
 
-case class Coffees ( id : Long , name : String , price : Double , qty : Long ,supplierId : Long, createDate : LocalDateTime)
+case class Coffees (  name : String , price : Double , qty : Long ,supplierId : Long, createDate : LocalDateTime , id : Long = 0L)
 
 final class CoffeesTable(tag: Tag) extends Table[Coffees](tag ,"Coffees"){
 
@@ -45,14 +45,31 @@ final class CoffeesTable(tag: Tag) extends Table[Coffees](tag ,"Coffees"){
 
   def createDate : Rep[LocalDateTime] = column[LocalDateTime]("createDate")
 
-  override def * = (id , name , price , qty , supplierId,createDate).mapTo[Coffees]
+  override def * = (name , price , qty , supplierId,createDate , id).mapTo[Coffees]
 
   def supplierFK =
     foreignKey("supplier_fk" , supplierId , TableQuery[SuppliersTable])(_.id , onDelete = ForeignKeyAction.Cascade)
 
 }
 
+case class Student(firstName : String , lastName : String , middleName : Option[String] , emailAddress : String , age : Int,id : Long =0L)
 
+final class StudentTable(tag: Tag) extends Table[Student](tag , "Student"){
+
+  def id : Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
+
+  def firstName: Rep[String] = column[String]("firstName", O.Length(512))
+
+  def lastName: Rep[String] = column[String]("lastName", O.Length(512))
+
+  def middleName: Rep[Option[String]] = column[Option[String]]("middleName")
+
+  def emailAddress : Rep[String] = column[String]("emailAddress")
+
+  def age : Rep[Int] = column[Int]("age")
+
+  override def * = ( firstName , lastName , middleName , emailAddress , age , id).mapTo[Student]
+}
 
 
 

@@ -9,5 +9,6 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-nop" % "1.7.29",
   "org.postgresql" % "postgresql" % "42.2.8",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.3.2",
+  "ch.qos.logback"      % "logback-classic" % "1.2.3",
   "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 )
