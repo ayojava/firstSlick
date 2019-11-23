@@ -1,7 +1,8 @@
 import java.time.LocalDateTime
 
 import slick.lifted.{ProvenShape, Rep, Tag}
-import slick.jdbc.PostgresProfile.api._
+//import slick.jdbc.PostgresProfile.api._
+import slick.jdbc.MySQLProfile.api._
 
 //Building applications with scala
 
